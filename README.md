@@ -79,5 +79,4 @@
 
 📫 联系方式：
 - **邮箱**: ndk@live.com（仅限学术交流）
-- **QQ群**: [点击链接加入群聊【协议分析交流】](https://qm.qq.com/q/n7W49SEiNq)
 - **GitHub Issues**: [提交技术讨论](https://github.com/husanpao/xyzw_analyzer/issues)
