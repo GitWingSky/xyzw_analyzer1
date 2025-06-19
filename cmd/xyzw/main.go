@@ -21,7 +21,7 @@ import (
 )
 
 // 当前应用版本
-const appVersion = "v1.1.5" // 请根据实际情况修改
+const appVersion = "v1.1.6" // 请根据实际情况修改
 
 // Release 结构体用于解析GitHub API返回的release信息
 type Release struct {
@@ -56,7 +56,6 @@ func showDisclaimer() {
 	green.Println("项目信息:")
 	green.Println("- 项目地址: https://github.com/husanpao/xyzw_analyzer")
 	green.Println("- 问题反馈: 请在GitHub项目页面提交issue")
-	yellow.Println("- QQ群: 211788130")
 
 	cyan.Println("=================================================================")
 	fmt.Println()
