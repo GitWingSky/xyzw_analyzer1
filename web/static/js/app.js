@@ -423,7 +423,7 @@ const App = {
                 })
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('发送失败');
+                            throw new Error('清先使用小程序/QQ登录咸鱼之王，然后再使用网页登录功能！');
                         }
                         return response.json();
                     })

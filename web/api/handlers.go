@@ -97,6 +97,10 @@ func HandleLoadNotes(w http.ResponseWriter, r *http.Request) {
 func HandleDebugOpenGame(w http.ResponseWriter, r *http.Request) {
 	proxy.Redirect = true
 	w.WriteHeader(http.StatusOK)
+	if proxy.AuthData == "" {
+		w.Write([]byte(`{"success": false}`))
+		return
+	}
 	w.Write([]byte(`{"success": true}`))
 }
 func HandleDebugMessage(w http.ResponseWriter, r *http.Request) {
