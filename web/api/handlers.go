@@ -94,6 +94,11 @@ func HandleLoadNotes(w http.ResponseWriter, r *http.Request) {
 }
 
 // HandleDebugMessage 处理调试消息发送
+func HandleDebugOpenGame(w http.ResponseWriter, r *http.Request) {
+	proxy.Redirect = true
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(`{"success": true}`))
+}
 func HandleDebugMessage(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "只支持POST请求", http.StatusMethodNotAllowed)

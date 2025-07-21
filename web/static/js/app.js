@@ -405,6 +405,38 @@ const App = {
                 this.$message.error('JSON格式错误: ' + e.message);
             }
         },
+        openGame() {
+            if (!this.isConnected) {
+                this.$message.error('WebSocket未连接');
+                return;
+            }
+            try {
+                const jsonObj = {};
+
+                // 发送到后端队列
+                fetch('/api/debug/openGame', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(jsonObj)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('发送失败');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                       window.open("https://xxz-xyzw-res.hortorgames.com/h5web/index.html")
+                    })
+                    .catch(error => {
+                        this.$message.error('发送失败: ' + error.message);
+                    });
+            } catch (e) {
+                this.$message.error('JSON格式错误: ' + e.message);
+            }
+        },
         // 发送调试消息
         sendDebugMessage() {
             if (!this.isConnected) {

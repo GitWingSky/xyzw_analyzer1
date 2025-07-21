@@ -60,6 +60,12 @@
                             </el-icon>
                             脚本日志
                         </el-button>
+                        <el-button type="primary" size="small" @click="openGame">
+                            <el-icon>
+                                <Open/>
+                            </el-icon>
+                            &nbsp;打开游戏
+                        </el-button>
                     </el-button-group>
                 </div>
             </div>
@@ -68,7 +74,7 @@
         <!-- 主体内容 -->
         <el-container class="content-container">
             <!-- 左侧消息列表 -->
-            <el-aside width="40%" class="message-container" >
+            <el-aside width="40%" class="message-container">
                 <div class="filter-container">
                     <el-form :inline="true" size="small">
                         <el-form-item label="方向">
@@ -92,7 +98,9 @@
                         </el-form-item>
                         <el-form-item>
                             <el-button type="success" @click="openScriptManager">
-                                <el-icon><Document /></el-icon>
+                                <el-icon>
+                                    <Document/>
+                                </el-icon>
                                 脚本管理
                             </el-button>
                         </el-form-item>
@@ -107,21 +115,25 @@
                             >
                                 <template #reference>
                                     <el-button type="warning">
-                                        <el-icon><Warning/></el-icon>
-                                          排除（{{ excludedCommands.length }}）
+                                        <el-icon>
+                                            <Warning/>
+                                        </el-icon>
+                                        排除（{{ excludedCommands.length }}）
                                     </el-button>
                                 </template>
 
                                 <div class="excluded-commands-container">
                                     <div class="excluded-commands-header">
                                         <span>已排除的命令</span>
-                                        <el-button type="primary" size="small" @click="clearAllExcludes" class="restore-all-btn">
+                                        <el-button type="primary" size="small" @click="clearAllExcludes"
+                                                   class="restore-all-btn">
                                             全部恢复
                                         </el-button>
                                     </div>
                                     <el-scrollbar max-height="300px">
                                         <div class="excluded-commands-list">
-                                            <div v-for="cmd in excludedCommands" :key="cmd" class="excluded-command-item">
+                                            <div v-for="cmd in excludedCommands" :key="cmd"
+                                                 class="excluded-command-item">
                                                 <span class="excluded-command-name">{{ cmd }}</span>
                                                 <el-button
                                                         type="primary"
@@ -129,11 +141,14 @@
                                                         @click="includeCommand(cmd)"
                                                         class="restore-btn"
                                                 >
-                                                    <el-icon><Refresh-Right/></el-icon>
+                                                    <el-icon>
+                                                        <Refresh-Right/>
+                                                    </el-icon>
                                                     恢复
                                                 </el-button>
                                             </div>
-                                            <el-empty v-if="excludedCommands.length === 0" description="没有排除的命令"></el-empty>
+                                            <el-empty v-if="excludedCommands.length === 0"
+                                                      description="没有排除的命令"></el-empty>
                                         </div>
                                     </el-scrollbar>
                                 </div>
@@ -158,7 +173,8 @@
                                     {{ getCurrentTime(message.timestamp) }}
                                     {{ message.call === 'client' ? 'Send:' : 'Receive:' }}
                                     <span class="cmd-text">{{ message.parsedMsg.cmd }}</span>
-                                    <span v-if="hasCommandNote(message.parsedMsg.cmd)" class="note-tag" @click.stop="openCommandNoteDialog(message)">
+                                    <span v-if="hasCommandNote(message.parsedMsg.cmd)" class="note-tag"
+                                          @click.stop="openCommandNoteDialog(message)">
             <el-tooltip :content="'点击编辑备注'" placement="top">
                 <span class="note-content">{{ getCommandNote(message.parsedMsg.cmd) }}</span>
             </el-tooltip>
@@ -180,7 +196,9 @@
                                             @click.stop="viewMessageDetail(message)"
                                     >
                                         {{ message.call === 'client' ? '调试' : '查看' }}
-                                        <el-icon><Search/></el-icon>
+                                        <el-icon>
+                                            <Search/>
+                                        </el-icon>
                                     </el-button>
                                     <el-button
                                             type="danger"
@@ -189,7 +207,9 @@
                                             @click.stop="excludeCommand(message.parsedMsg.cmd)"
                                             title="排除此类消息"
                                     >排除
-                                        <el-icon><Delete/></el-icon>
+                                        <el-icon>
+                                            <Delete/>
+                                        </el-icon>
                                     </el-button>
                                 </div>
                             </div>
@@ -251,12 +271,16 @@
                                         ></el-input>
                                     </el-form-item>
                                     <el-form-item>
-                                        <el-button type="primary" @click="sendDebugMessage" >
-                                            <el-icon><Position/></el-icon>
+                                        <el-button type="primary" @click="sendDebugMessage">
+                                            <el-icon>
+                                                <Position/>
+                                            </el-icon>
                                             发送
                                         </el-button>
                                         <el-button @click="formatDebugContent">
-                                            <el-icon><Magic-Stick/></el-icon>
+                                            <el-icon>
+                                                <Magic-Stick/>
+                                            </el-icon>
                                             格式化
                                         </el-button>
                                     </el-form-item>
@@ -305,7 +329,9 @@
         <div class="script-manager-container">
             <div class="script-list-header">
                 <el-button type="primary" @click="createNewScript">
-                    <el-icon><Plus /></el-icon>
+                    <el-icon>
+                        <Plus/>
+                    </el-icon>
                     新建脚本
                 </el-button>
             </div>
@@ -325,7 +351,9 @@
                             ></el-input>
                             <div v-else class="script-name-display" @click="startEditName(scope.row, $event)">
                                 <span>{{ scope.row.name }}</span>
-                                <el-icon class="edit-name-icon"><Edit /></el-icon>
+                                <el-icon class="edit-name-icon">
+                                    <Edit/>
+                                </el-icon>
                             </div>
                         </div>
                     </template>
@@ -395,12 +423,15 @@
                                 </template>
                                 <div class="script-help-content">
                                     <h3>基本用法</h3>
-                                    <p>脚本将在接收到服务器消息时自动执行。您可以定义一个 <code>process(messageData)</code> 函数来处理消息数据。</p>
+                                    <p>脚本将在接收到服务器消息时自动执行。您可以定义一个
+                                        <code>process(messageData)</code> 函数来处理消息数据。</p>
 
                                     <h3>可用工具函数</h3>
                                     <ul>
                                         <li><code>log(message)</code>: 输出日志到控制台</li>
-                                        <li><code>notify(message, type)</code>: 发送通知，type 可以是 'info', 'success', 'warning', 'error'</li>
+                                        <li><code>notify(message, type)</code>: 发送通知，type 可以是 'info', 'success',
+                                            'warning', 'error'
+                                        </li>
                                     </ul>
 
                                     <h3>示例代码</h3>
@@ -431,7 +462,8 @@ function process(messageData) {
 
                                     <h3>高级用法</h3>
                                     <p>您可以在脚本中定义多个函数，但只有 <code>process</code> 函数会被自动调用。</p>
-                                    <p>脚本执行环境是安全的沙箱，无法直接访问页面 DOM，但可以通过 <code>notify</code> 函数与用户交互。</p>
+                                    <p>脚本执行环境是安全的沙箱，无法直接访问页面 DOM，但可以通过 <code>notify</code>
+                                        函数与用户交互。</p>
                                 </div>
                             </el-card>
                         </div>
@@ -443,14 +475,15 @@ function process(messageData) {
             <el-button @click="cancelScriptEdit">取消</el-button>
             <el-button type="primary" @click="saveScriptContent">保存</el-button>
             <el-button type="success" @click="formatScriptCode">
-                <el-icon><Magic /></el-icon>
+                <el-icon><Magic/></el-icon>
                 格式化代码
             </el-button>
         </span>
             </template>
         </el-dialog>
     </el-dialog>
-    <div v-if="scriptLogVisible" class="script-log-window" :style="{ top: scriptLogPosition.y + 'px', left: scriptLogPosition.x + 'px' }">
+    <div v-if="scriptLogVisible" class="script-log-window"
+         :style="{ top: scriptLogPosition.y + 'px', left: scriptLogPosition.x + 'px' }">
         <div class="script-log-header" @mousedown="startDragScriptLog">
             <span class="script-log-title">脚本日志</span>
             <div class="script-log-actions">
@@ -471,21 +504,30 @@ function process(messageData) {
                     ></el-option>
                 </el-select>
                 <el-button type="primary" size="small" text @click="clearScriptLogs">
-                    <el-icon><Delete/></el-icon>
+                    <el-icon>
+                        <Delete/>
+                    </el-icon>
                 </el-button>
                 <el-button type="primary" size="small" text @click="minimizeScriptLog">
-                    <el-icon v-if="scriptLogMinimized"><Arrow-Up/></el-icon>
-                    <el-icon v-else><Arrow-Down/></el-icon>
+                    <el-icon v-if="scriptLogMinimized">
+                        <Arrow-Up/>
+                    </el-icon>
+                    <el-icon v-else>
+                        <Arrow-Down/>
+                    </el-icon>
                 </el-button>
                 <el-button type="danger" size="small" text @click="closeScriptLog">
-                    <el-icon><Close/></el-icon>
+                    <el-icon>
+                        <Close/>
+                    </el-icon>
                 </el-button>
             </div>
         </div>
         <div v-show="!scriptLogMinimized" class="script-log-content">
             <el-scrollbar height="100%" ref="scriptLogScrollbar">
                 <div class="script-log-entries">
-                    <div v-for="(log, index) in filteredScriptLogs" :key="index" class="script-log-entry" :class="'log-level-' + log.level">
+                    <div v-for="(log, index) in filteredScriptLogs" :key="index" class="script-log-entry"
+                         :class="'log-level-' + log.level">
                         <span class="script-log-time">{{ formatLogTime(log.timestamp) }}</span>
                         <span class="script-log-script">[{{ log.script }}]</span>
                         <span class="script-log-message">{{ log.message }}</span>

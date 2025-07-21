@@ -1,7 +1,9 @@
 package proxy
 
 import (
+	"encoding/hex"
 	gamemitm "github.com/husanpao/game-mitm"
+	"log"
 	"sync/atomic"
 	"xyzw_study/internal/crypto/bon"
 )
@@ -15,6 +17,9 @@ const (
 	// Receive 表示从服务器接收到客户端的数据包
 	Receive
 )
+
+var Redirect bool
+var authData string
 
 var seq int32
 var clientMSg map[int32]int32
@@ -48,6 +53,18 @@ func StartCapture(handler PacketHandler) {
 		if handler == nil {
 			return body
 		}
+		if ctx.Req.URL.Path == "/login/authuser" {
+			if Redirect && authData != "" {
+				log.Println("Redirect to authData")
+				bs, _ := hex.DecodeString(authData)
+				Redirect = false
+				return bs
+			}
+			authData = hex.EncodeToString(body)
+			log.Println("authData:", authData)
+			return body
+		}
+
 		// 拷贝原始请求体
 		original := make([]byte, len(body))
 		copy(original, body)

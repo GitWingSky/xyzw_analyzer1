@@ -28,6 +28,7 @@ func StartWebServer() {
 
 	// 设置调试消息API路由
 	http.HandleFunc("/api/debug/send", api.HandleDebugMessage)
+	http.HandleFunc("/api/debug/openGame", api.HandleDebugOpenGame)
 
 	// 添加脚本相关API路由
 	http.HandleFunc("/api/scripts/save", api.HandleSaveScript)
