@@ -32,9 +32,9 @@ const App = {
             scriptLogs: [],           // 存储脚本日志
             scriptLogVisible: false,  // 日志窗口可见性
             scriptLogMinimized: false, // 日志窗口是否最小化
-            scriptLogPosition: { x: 20, y: 100 }, // 日志窗口位置
+            scriptLogPosition: {x: 20, y: 100}, // 日志窗口位置
             isDraggingLog: false,     // 是否正在拖动日志窗口
-            dragOffset: { x: 0, y: 0 }, // 拖动偏移量
+            dragOffset: {x: 0, y: 0}, // 拖动偏移量
             maxScriptLogs: 500,       // 最大日志数量
             scriptLogFilter: "",      // 脚本日志筛选
             // Tab相关
@@ -423,15 +423,18 @@ const App = {
                 })
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('清先使用小程序/QQ登录咸鱼之王，然后再使用网页登录功能！');
+                            throw new Error('发送失败');
                         }
                         return response.json();
                     })
                     .then(data => {
-                       window.open("https://xxz-xyzw-res.hortorgames.com/h5web/index.html")
+                        if (data.success === false) {
+                            throw new Error('清先使用小程序/QQ登录咸鱼之王，然后再使用网页登录功能！');
+                        }
+                        window.open("https://xxz-xyzw-res.hortorgames.com/h5web/index.html")
                     })
                     .catch(error => {
-                        this.$message.error('发送失败: ' + error.message);
+                        this.$message.error('登录失败: ' + error.message);
                     });
             } catch (e) {
                 this.$message.error('JSON格式错误: ' + e.message);
@@ -1068,7 +1071,7 @@ function process(messageData) {
                 }
 
                 // 配置 Monaco 编辑器加载器
-                require.config({ paths: { 'vs': 'https://cdn.staticfile.net/monaco-editor/0.45.0/min/vs' }});
+                require.config({paths: {'vs': 'https://cdn.staticfile.net/monaco-editor/0.45.0/min/vs'}});
 
                 // 加载编辑器
                 require(['vs/editor/editor.main'], () => {
@@ -1181,7 +1184,7 @@ function process(messageData) {
                 // 恢复备份数据
                 const index = this.scripts.findIndex(s => s.id === this.currentScript.id);
                 if (index !== -1) {
-                    this.scripts[index] = { ...this.scriptBackup, editing: false };
+                    this.scripts[index] = {...this.scriptBackup, editing: false};
                 }
             }
 
